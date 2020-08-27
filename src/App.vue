@@ -6,21 +6,24 @@
       <option disabled value="">Select a Beer</option>
       <option v-for="(beer, index) in beers" :key="index" :value="beer">{{beer.name}}</option>
     </select>
+    <button v-on:click="addBeer">Add Beer</button>
+    <div id="app-container">
 
     <beer-detail v-if="selectedBeer" :selectedBeer="selectedBeer">
 
     </beer-detail>
 
-    <button v-on:click="addBeer">Add Beer</button>
 
     <favourite-beers v-for="(beer, index) in favouriteBeers" :key="index" :beer="beer">
 
     </favourite-beers>
+    </div>
   </div>
 </template>
 
 <script>
 import BeerDetail from './components/BeerDetail.vue';
+import FavouriteBeers from './components/FavouriteBeers.vue';
 
 export default {
   name: 'app',
@@ -33,6 +36,7 @@ export default {
   },
   components: {
     'beer-detail': BeerDetail,
+    'favourite-beers': FavouriteBeers
   },
   methods: {
     fetchBeers: function(){
@@ -51,5 +55,14 @@ export default {
 </script>
 
 <style>
-
+#app-container{
+  display: flex;
+}
+beer-detail{
+  width: 60%;
+}
+favourite-beers{
+  width: 40%;
+  margin-left: 20px;
+}
 </style>
