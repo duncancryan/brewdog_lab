@@ -1,28 +1,41 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">    
+    <h1>BrewDog Archive</h1>
+    <label for="beer_select">Which Beer?</label>
+    <select id="beer_select" v-model="selectedBeer">
+      <option disabled value="">Select a Beer</option>
+      <option v-for="(beer, index) in beers" :key="index" :value="beer">{{beer.name}}</option>
+    </select>
+
+    <beer-detail v-if="selectedBeer" :selectedBeer="selectedBeer"></beer-detail>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data(){
+    return {
+      beers: [],
+      selectedBeer: null,
+    }
+  },
+  componenents: {
+
+  },
+  methods: {
+    fetchBeers: function(){
+      fetch('https://api.punkapi.com/v2/beers')
+      .then(response => response.json())
+      .then(beers => this.beers = beers)
+    }
+  },
+  mounted(){
+    this.fetchBeers();
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
