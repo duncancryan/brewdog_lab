@@ -6,7 +6,7 @@
       <option disabled value="">Select a Beer</option>
       <option v-for="(beer, index) in beers" :key="index" :value="beer">{{beer.name}}</option>
     </select>
-    <button v-on:click="addBeer">Add Beer</button>
+    <button v-if="!favouriteBeers.includes(selectedBeer)" v-on:click="addBeer">Add Beer</button>
     <div id="app-container">
 
     <beer-detail v-if="selectedBeer" :selectedBeer="selectedBeer">
@@ -14,7 +14,7 @@
     </beer-detail>
 
 
-    <favourite-beers v-for="(beer, index) in favouriteBeers" :key="index" :beer="beer">
+    <favourite-beers :favouriteBeers="favouriteBeers">
 
     </favourite-beers>
     </div>

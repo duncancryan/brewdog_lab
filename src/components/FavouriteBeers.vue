@@ -1,10 +1,8 @@
 <template>
   <div>
-      <h2>My Favourite Brews</h2>
       <ul>
-          <li>
-              <p>{{beer.name}}</p>
-          </li>
+      <h2>My Favourite Brews</h2>
+          <li v-for="favouriteBeer in favouriteBeers">{{favouriteBeer.name}}</li>
       </ul>
 
   </div>
@@ -13,12 +11,15 @@
 <script>
 export default {
     name: 'favourite-beers',
-    props: ['beer']
+    props: ['favouriteBeers']
 }
 </script>
 
-<style>
+<style scoped>
 ul{
     list-style: none;
+}
+li{
+    margin-top: 10px;
 }
 </style>
