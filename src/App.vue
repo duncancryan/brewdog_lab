@@ -24,6 +24,7 @@
 <script>
 import BeerDetail from './components/BeerDetail.vue';
 import FavouriteBeers from './components/FavouriteBeers.vue';
+import { eventBus } from './main.js'
 
 export default {
   name: 'app',
@@ -40,16 +41,23 @@ export default {
   },
   methods: {
     fetchBeers: function(){
-      fetch('https://api.punkapi.com/v2/beers')
+      fetch('https://api.punkapi.com/v2/beers?page=1&age=2&age=3&age=4&age=5&per_page=80')
       .then(response => response.json())
       .then(beers => this.beers = beers)
     },
     addBeer: function() {
-      this.favouriteBeers.unshift(this.selectedBeer);
+      this.favouriteBeers.push(this.selectedBeer);
+    },
+    deleteBeer: function(){
+      eventBus.$on('beer-deleted', (FavouriteBeer) => {
+        const index = this.favouriteBeers.indexOf(FavouriteBeer);
+        this.favouriteBeers.splice(index, 1);
+      })
     }
   },
   mounted(){
     this.fetchBeers();
+    this.deleteBeer();
   }
 }
 </script>
